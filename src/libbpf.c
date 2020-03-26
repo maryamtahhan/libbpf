@@ -1352,6 +1352,19 @@ bpf_object__init_internal_map(struct bpf_object *obj, enum libbpf_map_type type,
 	return 0;
 }
 
+void *bpf_object__rodata(const struct bpf_object *obj, size_t *size)
+{
+	struct bpf_map *map;
+
+	bpf_object__for_each_map(map, obj) {
+		if (map->libbpf_type == LIBBPF_MAP_RODATA && map->mmaped) {
+			*size = map->def.value_size;
+			return map->mmaped;
+		}
+	}
+	return NULL;
+}
+
 static int bpf_object__init_global_data_maps(struct bpf_object *obj)
 {
 	int err;

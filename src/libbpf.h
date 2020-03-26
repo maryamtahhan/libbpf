@@ -166,6 +166,7 @@ typedef void (*bpf_object_clear_priv_t)(struct bpf_object *, void *);
 LIBBPF_API int bpf_object__set_priv(struct bpf_object *obj, void *priv,
 				    bpf_object_clear_priv_t clear_priv);
 LIBBPF_API void *bpf_object__priv(const struct bpf_object *prog);
+LIBBPF_API void *bpf_object__rodata(const struct bpf_object *obj, size_t *size);
 
 LIBBPF_API int
 libbpf_prog_type_by_name(const char *name, enum bpf_prog_type *prog_type,
